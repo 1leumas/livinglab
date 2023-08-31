@@ -13,16 +13,23 @@ python-dotenv
 # │   │   └── routes.py
 # │   ├── meu_ambinete_virtual/
 # │   ├── .env
+# │   ├── .env.example
+# │   ├── .gitignore
 # │   ├── config.py
 # │   ├── requirements.txt
 # │   └── run.py
 # |
 # ├── frontend/
+# │   ├── node_modules/
 # │   ├── public/
+# │   │   ├── favicon.ico/
+# │   │   └── index.html
 # │   ├── src/
-# │   │   ├── components/
+# │   │   ├── App.css/
 # │   │   ├── App.js
-# │   │   └── index.js
+# │   │   ├── index.css
+# │   │   ├── index.js
+# │   ├── .gitignore
 # │   ├── package-lock.json
 # │   └── package.json
 # │
