@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
+// tooltip para exibir informacoes adicionais
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
       <div className="custom-tooltip">
+        {/* mostra a data, temperatura, umidade e pressao */}
         <p className="label">{`Time: ${payload[0].payload.time}`}</p>
         <p className="label">{`Temperature: ${payload[0].value} °C`}</p>
         <p className="label">{`Humidity: ${payload[1].value} %`}</p>
@@ -16,19 +18,21 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
+// transforma os dados brutos em um formato mais gerenciavel
 const transformData = (rawData) => {
   const seenTimes = new Set();
   let transformedData = rawData.data
-    .filter(item => item[7] !== 0 && item[8] !== 0)
+    .filter(item => item[7] !== 0 && item[8] !== 0) // filtra valores invalidos
     .filter(item => {
       const time = new Date(item[15]).getTime();
+      // filtra os dados de 3 em 3 hrs
       if (seenTimes.has(time - (time % (3 * 60 * 60 * 1000)))) {
         return false;
       }
       seenTimes.add(time - (time % (3 * 60 * 60 * 1000)));
       return true;
     })
-    .map(item => ({
+    .map(item => ({ // mapeia os dados para um novo obj
       id: item[0],
       station: item[2],
       temperature: item[7],
@@ -36,26 +40,30 @@ const transformData = (rawData) => {
       pressure: item[12],
       time: new Date(item[15]).toLocaleString(),
     }))
+    // ordena os dados por tempo
     .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
 
   return transformedData;
 };
 
+// app principal
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(null); //armazenar os dados
 
   useEffect(() => {
+    // funcao para buscar dados
     const fetchData = async () => {
       const result = await axios.get('http://localhost:5000/api/data/nit2xli');
       const transformedData = transformData(result.data);
       setData(transformedData);
     };
 
-    fetchData();
+    fetchData(); // chama a funcao para buscar dados
   }, []);
 
   return (
     <div>
+      {/* renderiza o grafico se os dados estiverem disponiveis, se nao mostra "Loading..." */}
       {data ? (
         <LineChart width={1000} height={450} data={data}>
           <XAxis dataKey="time" />
