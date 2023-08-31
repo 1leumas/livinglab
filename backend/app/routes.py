@@ -33,7 +33,7 @@ def get_table_data(table_name):
     try:
         connection = connect_db()
         cursor = connection.cursor()
-        query = f"SELECT * FROM {table_name} LIMIT 1;"  # limitar a 10 para nao vir muitos dados
+        query = f"SELECT * FROM {table_name} LIMIT 10;" #escolher a quantidade de dados aqui
         cursor.execute(query)
         data = cursor.fetchall()
         cursor.close()
