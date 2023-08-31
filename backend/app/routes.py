@@ -33,7 +33,8 @@ def get_table_data(table_name):
     try:
         connection = connect_db()
         cursor = connection.cursor()
-        query = f"SELECT * FROM {table_name} LIMIT 10;" #escolher a quantidade de dados aqui
+        # Supondo que sua tabela tenha uma coluna 'id' que é autoincrementada
+        query = f"SELECT * FROM {table_name};"
         cursor.execute(query)
         data = cursor.fetchall()
         cursor.close()
