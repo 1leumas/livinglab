@@ -1,3 +1,4 @@
 *.env
 *pyc
 meu_ambiente_virtual/
+__pycache__/
