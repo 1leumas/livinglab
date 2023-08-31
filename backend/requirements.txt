@@ -2,3 +2,29 @@ Flask
 psycopg2
 Flask-CORS
 gunicorn
+python-dotenv
+
+# livinglab/
+# ├── backend/
+# │   ├── app/
+# │   │   ├── __pycache__/
+# │   │   ├── __init__.py
+# │   │   ├── models.py
+# │   │   └── routes.py
+# │   ├── meu_ambinete_virtual/
+# │   ├── .env
+# │   ├── config.py
+# │   ├── requirements.txt
+# │   └── run.py
+# |
+# ├── frontend/
+# │   ├── public/
+# │   ├── src/
+# │   │   ├── components/
+# │   │   ├── App.js
+# │   │   └── index.js
+# │   ├── package-lock.json
+# │   └── package.json
+# │
+# ├── .gitignore
+# └── README.md
