@@ -1,0 +1,36 @@
+# livinglab/
+# ├── backend/
+# │   ├── app/
+# │   │   ├── __pycache__/
+# │   │   ├── __init__.py
+# │   │   ├── models.py
+# │   │   └── routes.py
+# │   ├── meu_ambinete_virtual/
+# │   ├── .env
+# │   ├── .env.example
+# │   ├── .gitignore
+# │   ├── config.py
+# │   ├── requirements.txt
+# │   └── run.py
+# |
+# ├── frontend/
+# │   ├── node_modules/
+# │   ├── public/
+# │   │   ├── favicon.ico/
+# │   │   └── index.html
+# │   ├── src/
+# │   │   ├── components/
+# │   │   │   ├── header/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
+# │   │   │   ├── searchBar/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
+# │   │   ├── App.js
+# │   │   ├── index.css
+# │   │   ├── index.js
+# │   ├── .gitignore
+# │   ├── package-lock.json
+# │   └── package.json
+# ├── .gitignore
+# └── README.md
