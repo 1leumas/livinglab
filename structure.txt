@@ -15,10 +15,19 @@
 # |
 # ├── frontend/
 # │   ├── node_modules/
+# │   ├── images/
+# │   │   └── logounijui.html
 # │   ├── public/
 # │   │   ├── favicon.ico/
 # │   │   └── index.html
 # │   ├── src/
+# │   │   ├── pages/
+# │   │   │   ├── home/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
+# │   │   │   ├── trends/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
 # │   │   ├── components/
 # │   │   │   ├── header/
 # │   │   │   │   ├── index.js
@@ -26,6 +35,8 @@
 # │   │   │   ├── searchBar/
 # │   │   │   │   ├── index.js
 # │   │   │   │   └── styles.js
+# │   │   │   ├── loading/
+# │   │   │   │   └── loading.jsx
 # │   │   ├── App.js
 # │   │   ├── index.css
 # │   │   ├── index.js
