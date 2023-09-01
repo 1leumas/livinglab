@@ -1,5 +1,6 @@
 from . import app, connect_db  # importar a funcao connect_db
 from flask import jsonify
+from datetime import date
 
 # rota para saber se a conexao foi estabelecida
 @app.route('/api/db-status', methods=['GET'])
@@ -27,13 +28,12 @@ def list_tables():
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500
 
-#rota para saber os dados de uma certa tabela
+#rota para saber todos os dados de uma certa tabela
 @app.route('/api/data/<string:table_name>', methods=['GET'])
 def get_table_data(table_name):
     try:
         connection = connect_db()
         cursor = connection.cursor()
-        # Supondo que sua tabela tenha uma coluna 'id' que é autoincrementada
         query = f"SELECT * FROM {table_name};"
         cursor.execute(query)
         data = cursor.fetchall()
