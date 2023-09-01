@@ -25,13 +25,18 @@ python-dotenv
 # │   │   ├── favicon.ico/
 # │   │   └── index.html
 # │   ├── src/
-# │   │   ├── App.css/
+# │   │   ├── components/
+# │   │   │   ├── header/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
+# │   │   │   ├── searchBar/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
 # │   │   ├── App.js
 # │   │   ├── index.css
 # │   │   ├── index.js
 # │   ├── .gitignore
 # │   ├── package-lock.json
 # │   └── package.json
-# │
 # ├── .gitignore
 # └── README.md
