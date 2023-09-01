@@ -18,9 +18,8 @@ const CustomTooltip = ({ active, payload }) => {
     return (
       <div className="custom-tooltip">
         <p className="label">{`Time: ${payload[0].payload.time}`}</p>
-        <p className="label">{`Temperature: ${payload[0].value} °C`}</p>
         <p className="label">{`Humidity: ${payload[1].value} %`}</p>
-        <p className="label">{`Pressure: ${payload[0].payload.pressure} mbar`}</p>
+        <p className="label">{`Temperature: ${payload[0].value} °C`}</p>
       </div>
     );
   }
@@ -34,10 +33,9 @@ const transformData = (rawData, date = null) => {
     .map((item) => ({
       id: item[0],
       station: item[2],
-      temperature: item[7],
-      humidity: item[8],
-      pressure: item[12],
-      time: new Date(item[15]).toISOString(),
+      humidity: item[3],
+      temperature: item[4],
+      time: new Date(item[8]).toISOString(),
     }))
     .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
 
@@ -82,7 +80,8 @@ function App() {
   const fetchData = async (date = null) => {
     setIsLoading(true);
     try {
-      const result = await axios.get('http://localhost:5000/api/data/nit2xli');  // Replace with your API
+      const result = await axios.get('http://localhost:5000/api/data/k72623_lo');  // api
+      console.log('Raw JSON Data:', result.data);  // dados brutos json
       let transformedData = transformData(result.data, date);
       setData(transformedData);
     } catch (error) {
