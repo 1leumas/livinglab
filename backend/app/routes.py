@@ -1,6 +1,6 @@
-from . import app, connect_db  # importar a funcao connect_db
-from flask import jsonify
-from datetime import date
+from . import app, connect_db  # Importar a função connect_db
+from flask import jsonify, request  # Importar request
+from datetime import date, datetime, timedelta  # Importar bibliotecas de data e hora
 
 # rota para saber se a conexao foi estabelecida
 @app.route('/api/db-status', methods=['GET'])
@@ -74,5 +74,38 @@ def get_latest_data():
         cursor.close()
         connection.close()
         return jsonify(status="success", latest_data=latest_data), 200
+    except Exception as e:
+        return jsonify(status="error", message=str(e)), 500
+    
+#rota para as trends
+@app.route('/api/trends', methods=['GET'])
+def get_trends_data():
+    try:
+        connection = connect_db()
+        cursor = connection.cursor()
+
+        #intervalo de tempo da consulta 
+        time_range = request.args.get('time_range')
+
+        start_date = datetime.now()
+        if time_range == 'lastDay':
+            start_date -= timedelta(days=1)
+        elif time_range == 'lastWeek':
+            start_date -= timedelta(weeks=1)
+        elif time_range == 'lastMonth':
+            start_date -= timedelta(days=30)
+        elif time_range == 'last3Months':
+            start_date -= timedelta(days=90)
+        elif time_range == 'allTime':
+            start_date = date(1970, 1, 1)
+
+        #consulta com base no intervalo de tempo
+        query = f"SELECT * FROM k72623_lo WHERE time >= '{start_date}' ORDER BY time ASC;"
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+        cursor.close()
+        connection.close()
+        return jsonify(status="success", data=data), 200
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500

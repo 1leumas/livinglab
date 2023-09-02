@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header";
-import { LatestDataCard } from "./styles";
+import { LatestDataCard, HomeContainer } from "./styles";
 import Loading from "../../components/loading/loading.jsx";
 
 const Home = () => {
@@ -12,13 +12,15 @@ const Home = () => {
       .then((data) => setLatestData(data.latest_data))
       .catch((error) => console.log("Error fetching latest data:", error));
 
-    console.log(latestData);
+    //console.log(latestData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div>
       <Header />
+      <HomeContainer>
+      <h2>Latest Data</h2>
       {latestData ? (
         <LatestDataCard>
           <p>Device: {latestData[2]}</p>
@@ -31,6 +33,7 @@ const Home = () => {
       ) : (
         <Loading />
       )}
+      </HomeContainer>
     </div>
   );
 };

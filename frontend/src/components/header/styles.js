@@ -1,18 +1,18 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  background-color: rgb(72,72,72);
-  height: 70px; // Altura aumentada para 70px
+  background-color: rgb(72, 72, 72);
+  height: 60px;
 `;
 
 export const HeaderTitle = styled.h1`
   margin: 0;
   font-size: 2rem;
-  margin-left: 20px; // Espaço entre logo e título
+  margin-left: 20px;
   color: white;
 `;
 

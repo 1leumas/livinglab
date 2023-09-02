@@ -1,6 +1,6 @@
 // Loading.js
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const LoadingContainer = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const Spinner = styled.div`
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;
-  
+
   @keyframes spin {
     0% {
       transform: rotate(0deg);
@@ -44,7 +44,7 @@ const Loading = () => {
   return (
     <LoadingContainer>
       <Spinner />
-      <LoadingText>establishing connection to the databasee</LoadingText>
+      <LoadingText>Establishing Connection to the Database</LoadingText>
     </LoadingContainer>
   );
 };

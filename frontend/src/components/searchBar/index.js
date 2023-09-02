@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SearchBarContainer, SearchInput, SearchButton } from './styles';
+import { SearchBarContainer, SearchInput, SearchButton } from "./styles";
 
 function SearchBar({ setSearchDate, fetchData }) {
   const [localDate, setLocalDate] = useState(null);

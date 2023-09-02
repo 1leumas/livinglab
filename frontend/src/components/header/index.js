@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { HeaderContainer, HeaderTitle, LogoTitleContainer, Navigation } from "./styles";
+import {
+  HeaderContainer,
+  HeaderTitle,
+  LogoTitleContainer,
+  Navigation,
+} from "./styles";
 import logo from "./images/logounijui.png";
 
 const Header = () => {
