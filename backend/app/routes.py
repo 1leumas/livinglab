@@ -84,28 +84,42 @@ def get_trends_data():
         connection = connect_db()
         cursor = connection.cursor()
 
-        #intervalo de tempo da consulta 
+        # Recupera parâmetros de consulta
         time_range = request.args.get('time_range')
+        start_date_str = request.args.get('start_date')
+        end_date_str = request.args.get('end_date')
 
-        start_date = datetime.now()
-        if time_range == 'lastDay':
-            start_date -= timedelta(days=1)
-        elif time_range == 'lastWeek':
-            start_date -= timedelta(weeks=1)
-        elif time_range == 'lastMonth':
-            start_date -= timedelta(days=30)
-        elif time_range == 'last3Months':
-            start_date -= timedelta(days=90)
-        elif time_range == 'allTime':
-            start_date = date(1970, 1, 1)
+        query = "SELECT * FROM k72623_lo WHERE 1=1"
 
-        #consulta com base no intervalo de tempo
-        query = f"SELECT * FROM k72623_lo WHERE time >= '{start_date}' ORDER BY time ASC;"
+        # Se as datas de início e término estiverem disponíveis, use-as
+        if start_date_str and end_date_str:
+            start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+            end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+            query += f" AND time >= '{start_date}' AND time <= '{end_date}'"
+
+        # Caso contrário, use o intervalo de tempo fornecido
+        elif time_range:
+            start_date = datetime.now()
+            if time_range == 'lastDay':
+                start_date -= timedelta(days=1)
+            elif time_range == 'lastWeek':
+                start_date -= timedelta(weeks=1)
+            elif time_range == 'lastMonth':
+                start_date -= timedelta(days=30)
+            elif time_range == 'last3Months':
+                start_date -= timedelta(days=90)
+            elif time_range == 'allTime':
+                start_date = date(1970, 1, 1)
+            query += f" AND time >= '{start_date}'"
+
+        query += " ORDER BY time ASC;"
+        
         cursor.execute(query)
         data = cursor.fetchall()
 
         cursor.close()
         connection.close()
         return jsonify(status="success", data=data), 200
+
     except Exception as e:
         return jsonify(status="error", message=str(e)), 500

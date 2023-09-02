@@ -8,22 +8,6 @@ export const TrendsContainer = styled.div`
   align-items: center;
 `;
 
-export const TimeRangeButton = styled.button`
-  display: inline-block;
-  margin-right: 10px;
-  padding: 8px 16px;
-  background-color: ${({ selected }) => (selected ? "#333" : "#555")};
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: ${({ selected }) => (selected ? "#444" : "#666")};
-  }
-`;
-
 export const CustomTooltipContainer = styled.div`
   background-color: gray;
   border: 1px solid #ccc;
@@ -47,23 +31,16 @@ export const ChartContainer = styled.div`
   align-items: center;
 `;
 
-export const ExportButton = styled.button`
-  margin-left: auto;
-  padding: 8px 16px;
-  background-color: #555;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #666;
-  }
-`;
-
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+`;
+
+export const CheckboxGroup = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;

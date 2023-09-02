@@ -12,7 +12,9 @@ const Header = () => {
   return (
     <HeaderContainer>
       <LogoTitleContainer>
-        <img src={logo} alt="Logo UniJui" width="100" height="100" />
+        <Link to="/">
+          <img src={logo} alt="Logo UniJui" width="100" height="100" />
+        </Link>
         <HeaderTitle>Living Lab</HeaderTitle>
       </LogoTitleContainer>
       <Navigation>

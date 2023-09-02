@@ -12,7 +12,7 @@ const Home = () => {
       .then((data) => setLatestData(data.latest_data))
       .catch((error) => console.log("Error fetching latest data:", error));
 
-    //console.log(latestData);
+    console.log("Latest data:", latestData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
