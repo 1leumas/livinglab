@@ -33,11 +33,16 @@
 # │   │   │   │   │   └── logounijui.png
 # │   │   │   │   ├── index.js
 # │   │   │   │   └── styles.js
+# │   │   │   ├── intervalSelect/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
 # │   │   │   ├── loading/
 # │   │   │   │   └── loading.jsx
 # │   │   │   ├── searchBar/
 # │   │   │   │   ├── index.js
 # │   │   │   │   └── styles.js
+# │   │   │   ├── select/
+# │   │   │   │   └── Select.jsx
 # │   │   ├── pages/
 # │   │   │   ├── home/
 # │   │   │   │   ├── index.js

@@ -10,6 +10,9 @@ import {
 import Header from "../../components/header";
 import Loading from "../../components/loading/loading.jsx";
 import Button from "../../components/button";
+import Select from "../../components/select/Select";
+import IntervalSelect from "../../components/intervalSelect";
+
 import {
   LineChart,
   Line,
@@ -99,11 +102,38 @@ const Trends = () => {
     noise: false,
     voltage: false,
   });
+  const [selectedInterval, setSelectedInterval] = useState("all");
+  // eslint-disable-next-line no-unused-vars
+  const [customInterval, setCustomInterval] = useState(1);
+  const [showIntervalSelect, setShowIntervalSelect] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [originalData, setOriginalData] = useState([]);
 
   const handleDateSearch = (startDate, endDate) => {
     fetchData({ startDate, endDate });
   };
 
+  // Atualiza o estado do intervalo personalizado
+  const handleIntervalConfirm = (customValue) => {
+    console.log("Custom interval value received:", customValue);  // Debugging
+    setCustomInterval(customValue);
+    filterData(customValue);
+    setShowIntervalSelect(false);
+  };
+  
+
+  // Atualiza o estado do intervalo selecionado
+  const handleIntervalChange = (e) => {
+    const value = e.target.value;
+    setSelectedInterval(value);
+    if (value === "custom") {
+      setShowIntervalSelect(true); // Abre o componente de seleção de intervalo personalizado
+    } else {
+      filterData();
+    }
+  };
+
+  // Atualiza o estado do checkbox selecionado
   const handleMetricChange = (e) => {
     const value = e.target.checked;
     const name = e.target.name;
@@ -117,14 +147,13 @@ const Trends = () => {
     try {
       setLoading(true);
       let url = `http://localhost:5000/api/trends?time_range=${selectedTimeRange}`;
-
       if (dateRange) {
         url += `&start_date=${dateRange.startDate}&end_date=${dateRange.endDate}`;
       }
-
       const response = await axios.get(url);
       const transformedData = transformData(response.data.data);
       setData(transformedData);
+      setOriginalData(transformedData); // cópia para os dados nao serem apagados na memória
       setLoading(false);
     } catch (error) {
       console.error("Error fetching trends data:", error);
@@ -132,10 +161,73 @@ const Trends = () => {
     }
   };
 
+  const filterData = (intervalToUse = customInterval) => {
+    console.log("Filtering data with interval:", selectedInterval, "and custom interval:", intervalToUse);  // Debugging
+  
+    let filteredData = [...originalData]; // Começamos com todos os dados
+  
+    if (selectedInterval !== "all") {
+      let intervalInHours;
+  
+      if (selectedInterval === "custom") {
+        intervalInHours = intervalToUse;
+      } else {
+        intervalInHours = parseInt(selectedInterval.replace("h", ""), 10);
+      }
+  
+      let nextTime = new Date(filteredData[0].time).getTime();
+      filteredData = filteredData.filter((item) => {
+        const currTime = new Date(item.time).getTime();
+        if (currTime >= nextTime) {
+          nextTime = currTime + intervalInHours * 60 * 60 * 1000;
+          return true;
+        }
+        return false;
+      });
+    }
+  
+    setData(filteredData);
+  };
+
+  // Quando o componente é montado, buscamos os dados
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTimeRange]);
+
+  // Quando os dados são atualizados, filtramos novamente
+  useEffect(() => {
+    filterData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedInterval]);
+
+  const timeOptions = [
+    { label: "Last Day", value: "lastDay" },
+    { label: "Last Week", value: "lastWeek" },
+    { label: "Last Month", value: "lastMonth" },
+    { label: "Last 3 Months", value: "last3Months" },
+    { label: "Custom", value: "custom" },
+    { label: "All", value: "allTime" },
+  ];
+
+  const intervalOptions = [
+    { label: "1 Hour", value: "1h" },
+    { label: "4 Hours", value: "4h" },
+    { label: "12 Hours", value: "12h" },
+    { label: "Custom", value: "custom" },
+    { label: "All Data", value: "all" },
+  ];
+
+  const handleTimeRangeChange = (e) => {
+    const newTimeRange = e.target.value;
+
+    if (newTimeRange === "custom") {
+      setShowDateSelect(true);
+      return;
+    }
+
+    setSelectedTimeRange(newTimeRange);
+  };
 
   return (
     <div>
@@ -146,45 +238,28 @@ const Trends = () => {
           onSearch={handleDateSearch}
         />
       )}
+      {showIntervalSelect && (
+        <IntervalSelect
+          onClose={() => setShowIntervalSelect(false)}
+          onConfirm={handleIntervalConfirm}
+        />
+      )}
       {loading ? (
         <Loading message="Loading trends data..." />
       ) : (
         <TrendsContainer>
           <h2>Select Time Period:</h2>
           <ButtonContainer>
-            <Button
-              onClick={() => setSelectedTimeRange("lastDay")}
-              selected={selectedTimeRange === "lastDay"}
-            >
-              Last Day
-            </Button>
-            <Button
-              onClick={() => setSelectedTimeRange("lastWeek")}
-              selected={selectedTimeRange === "lastWeek"}
-            >
-              Last Week
-            </Button>
-            <Button
-              onClick={() => setSelectedTimeRange("lastMonth")}
-              selected={selectedTimeRange === "lastMonth"}
-            >
-              Last Month
-            </Button>
-            <Button
-              onClick={() => setSelectedTimeRange("last3Months")}
-              selected={selectedTimeRange === "last3Months"}
-            >
-              Last 3 Months
-            </Button>
-            <Button
-              onClick={() => setSelectedTimeRange("allTime")}
-              selected={selectedTimeRange === "allTime"}
-            >
-              All Time
-            </Button>
-            <Button onClick={() => setShowDateSelect(true)}>
-              Select Custom Range
-            </Button>
+            <Select
+              options={timeOptions}
+              value={selectedTimeRange}
+              onChange={handleTimeRangeChange}
+            />
+            <Select
+              options={intervalOptions}
+              value={selectedInterval}
+              onChange={handleIntervalChange}
+            />
             <Button onClick={() => exportToCSV(data, "trends_data.csv")}>
               Export to CSV
             </Button>
