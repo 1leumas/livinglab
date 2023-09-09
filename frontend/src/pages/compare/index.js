@@ -1,3 +1,4 @@
+// imports
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../components/header";
@@ -8,8 +9,14 @@ import Checkbox from "../../components/checkbox";
 import { ButtonContainer } from "./styles";
 import { CheckboxContainer } from "../../components/checkbox/styles";
 import { CompareContainer } from "./styles";
+import ExportToCSV from "../../components/exportToCSV";
 
 const Compare = () => {
+  /*
+
+    Variables
+
+  */
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [devices, setDevices] = useState([]);
@@ -17,7 +24,6 @@ const Compare = () => {
   const [selectedDevice2, setSelectedDevice2] = useState("");
   const [selectedTimeRange, setSelectedTimeRange] = useState("lastDay");
   const [selectedInterval, setSelectedInterval] = useState("all");
-  // eslint-disable-next-line no-unused-vars
   const [selectedMetrics, setSelectedMetrics] = useState({
     temperature: true,
     humidity: true,
@@ -39,7 +45,11 @@ const Compare = () => {
 
   const intervalOptions = [
     { label: "1 Hour", value: "1h" },
+    { label: "2 Hours", value: "2h" },
     { label: "4 Hours", value: "4h" },
+    { label: "6 Hours", value: "6h" },
+    { label: "8 Hours", value: "8h" },
+    { label: "12 Hours", value: "12h" },
     { label: "All Data", value: "all" },
   ];
 
@@ -54,12 +64,33 @@ const Compare = () => {
     { label: "Luminosity", value: "luminosity" },
   ];
 
+  const strokeColors = [
+    "#8884d8",
+    "#82ca9d",
+    "#ffc658",
+    "#ff7300",
+    "#000000",
+    "#00ff00",
+    "#ff0000",
+    "#0000ff",
+  ];
+
+  /*
+
+    Functions
+
+  */
+
+  // pegar os dados da API e transformar em um array de objetos
   useEffect(() => {
+    console.log("Component Mount");
     setLoading(true);
+    console.log("Fetching Data");
     axios
       .get(`http://localhost:5000/api/compare?time_range=${selectedTimeRange}`)
       .then((response) => {
         const rawData = response.data.data;
+        // pegar apenas o que queremos do json
         const transformedData = rawData.map((item) => ({
           device: item[2],
           rain_lvl: item[3],
@@ -72,13 +103,13 @@ const Compare = () => {
           pressure: item[12],
           time: new Date(item[15]).toLocaleString(),
         }));
-
-        console.log("Transformed Data:", transformedData);
+        // pegar apenas os devices únicos
         const uniqueDevices = [
           ...new Set(transformedData.map((item) => item.device)),
         ];
         setDevices(uniqueDevices);
         setData(transformedData);
+        console.log("Data fetched");
         setLoading(false);
       })
       .catch((error) => {
@@ -87,6 +118,7 @@ const Compare = () => {
       });
   }, [selectedTimeRange]);
 
+  // Filtrar os dados de acordo com o device e o intervalo selecionados
   const filterDataByDeviceAndInterval = (device) => {
     if (!device) return [];
     let filteredData = data.filter((item) => item.device === device);
@@ -104,16 +136,24 @@ const Compare = () => {
       });
     }
 
+    console.log("Data filtered");
     return filteredData;
   };
 
+  // variáveis para guardar os dados filtrados
+  const filteredData1 = filterDataByDeviceAndInterval(selectedDevice1);
+  const filteredData2 = filterDataByDeviceAndInterval(selectedDevice2);
+
+  // se estiver carregando, mostrar o loading
   if (loading) {
     return <Loading />;
   }
 
-  const filteredData1 = filterDataByDeviceAndInterval(selectedDevice1);
-  const filteredData2 = filterDataByDeviceAndInterval(selectedDevice2);
-  const strokeColors = ["#8884d8", "#82ca9d", "#ffc658" /* ... */];
+  /*
+
+    Render
+
+  */
 
   return (
     <div>
@@ -132,6 +172,7 @@ const Compare = () => {
             onChange={(e) => setSelectedInterval(e.target.value)}
           />
         </ButtonContainer>
+
         <CheckboxContainer>
           {availableMetrics.map((metric) => (
             <Checkbox
@@ -149,12 +190,16 @@ const Compare = () => {
             />
           ))}
         </CheckboxContainer>
+
         <Select
           options={devices.map((device) => ({ label: device, value: device }))}
           value={selectedDevice1}
           onChange={(e) => setSelectedDevice1(e.target.value)}
           placeholder="Select Device for Chart 1"
         />
+
+        <ExportToCSV data={filteredData1} fileName="station_data_1.csv" />
+
         {filteredData1.length > 0 && (
           <CustomLineChart
             data={filteredData1}
@@ -162,12 +207,16 @@ const Compare = () => {
             strokeColors={strokeColors}
           />
         )}
+
         <Select
           options={devices.map((device) => ({ label: device, value: device }))}
           value={selectedDevice2}
           onChange={(e) => setSelectedDevice2(e.target.value)}
           placeholder="Select Device for Chart 2"
         />
+
+        <ExportToCSV data={filteredData2} fileName="station_data_2.csv" />
+
         {filteredData2.length > 0 && (
           <CustomLineChart
             data={filteredData2}
