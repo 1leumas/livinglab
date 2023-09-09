@@ -25,10 +25,11 @@ const StyledSelect = styled.select`
   }
 `;
 
-const Select = ({ options, value, onChange }) => {
+const Select = ({ options, value, onChange, placeholder }) => {
   return (
     <SelectContainer>
       <StyledSelect value={value} onChange={onChange}>
+      {placeholder && <option value="">{placeholder}</option>}
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.label}

@@ -3,12 +3,10 @@
 # │   ├── app/
 # │   │   ├── __pycache__/
 # │   │   ├── __init__.py
-# │   │   ├── models.py
 # │   │   └── routes.py
 # │   ├── .env
 # │   ├── .env.example
 # │   ├── .gitignore
-# │   ├── config.py
 # │   ├── requirements.txt
 # │   └── run.py
 # |
@@ -25,6 +23,12 @@
 # │   │   │   ├── checkbox/
 # │   │   │   │   ├── index.js
 # │   │   │   │   └── styles.js
+# │   │   │   ├── customLineChart/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
+# │   │   │   ├── CustomTooltip/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
 # │   │   │   ├── dateSelect/
 # │   │   │   │   ├── index.js
 # │   │   │   │   └── styles.js
@@ -38,12 +42,12 @@
 # │   │   │   │   └── styles.js
 # │   │   │   ├── loading/
 # │   │   │   │   └── loading.jsx
-# │   │   │   ├── searchBar/
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
 # │   │   │   ├── select/
 # │   │   │   │   └── Select.jsx
 # │   │   ├── pages/
+# │   │   │   ├── compare/
+# │   │   │   │   ├── index.js
+# │   │   │   │   └── styles.js
 # │   │   │   ├── home/
 # │   │   │   │   ├── index.js
 # │   │   │   │   └── styles.js

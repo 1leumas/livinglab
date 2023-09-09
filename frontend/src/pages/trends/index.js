@@ -245,7 +245,7 @@ const Trends = () => {
         />
       )}
       {loading ? (
-        <Loading message="Loading trends data..." />
+        <Loading />
       ) : (
         <TrendsContainer>
           <h2>Select Time Period:</h2>
