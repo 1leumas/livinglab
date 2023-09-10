@@ -46,6 +46,8 @@
 # │   │   │   ├── select/
 # │   │   │   │   └── Select.jsx
 # │   │   ├── pages/
+# │   │   │   ├── About/
+# │   │   │   │   └── index.jsx
 # │   │   │   ├── compare/
 # │   │   │   │   ├── index.js
 # │   │   │   │   └── styles.js

@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { CheckboxContainer, CheckboxLabel, StyledCheckbox } from './styles';
+import React from "react";
+import PropTypes from "prop-types";
+import { CheckboxContainer, CheckboxLabel, StyledCheckbox } from "./styles";
 
 const Checkbox = ({ name, checked, onChange, label }) => {
   return (

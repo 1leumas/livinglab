@@ -1,8 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-const SelectContainer = styled.div`
-`;
+const SelectContainer = styled.div``;
 
 const StyledSelect = styled.select`
   padding: 8px 16px;
@@ -27,7 +26,7 @@ const Select = ({ options, value, onChange, placeholder }) => {
   return (
     <SelectContainer>
       <StyledSelect value={value} onChange={onChange}>
-      {placeholder && <option value="">{placeholder}</option>}
+        {placeholder && <option value="">{placeholder}</option>}
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.label}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   LineChart,
   Line,
@@ -8,9 +8,9 @@ import {
   Tooltip,
   Legend,
   Brush,
-} from 'recharts';
-import CustomTooltip from '../customTooltip';
-import styled from 'styled-components';
+} from "recharts";
+import CustomTooltip from "../customTooltip";
+import styled from "styled-components";
 
 // estilo para o wrap de gráfico e insights
 const ChartAndInsightsContainer = styled.div`
@@ -68,7 +68,9 @@ const CustomLineChart = ({ data, selectedMetrics, strokeColors }) => {
         <XAxis dataKey="time" hide={true} />
         <YAxis tick={<CustomYAxisTick />} />
         <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip content={<CustomTooltip selectedMetrics={selectedMetrics} />} />
+        <Tooltip
+          content={<CustomTooltip selectedMetrics={selectedMetrics} />}
+        />
         <Brush dataKey="time" height={30} stroke="gray" />
         <Legend />
         {Object.keys(selectedMetrics).map((metric, index) => {
@@ -92,7 +94,8 @@ const CustomLineChart = ({ data, selectedMetrics, strokeColors }) => {
         <h3>Max | Min</h3>
         {Object.keys(insights).map((metric, index) => (
           <div key={index}>
-            <strong>{metric}</strong>: Max = {insights[metric].max}, Min = {insights[metric].min}
+            <strong>{metric}</strong>: Max = {insights[metric].max}, Min ={" "}
+            {insights[metric].min}
           </div>
         ))}
       </InsightsCard>

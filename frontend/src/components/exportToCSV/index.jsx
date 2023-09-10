@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from '../button';
+import React from "react";
+import PropTypes from "prop-types";
+import Button from "../button";
 
 const ExportToCSV = ({ data, fileName }) => {
   const exportToCSV = () => {
@@ -22,11 +22,7 @@ const ExportToCSV = ({ data, fileName }) => {
     link.click();
   };
 
-  return (
-    <Button onClick={exportToCSV}>
-      Export to CSV
-    </Button>
-  );
+  return <Button onClick={exportToCSV}>Export to CSV</Button>;
 };
 
 ExportToCSV.propTypes = {
@@ -35,7 +31,7 @@ ExportToCSV.propTypes = {
 };
 
 ExportToCSV.defaultProps = {
-  fileName: 'exported_data.csv',
+  fileName: "exported_data.csv",
 };
 
 export default ExportToCSV;

@@ -7,7 +7,7 @@ import {
   DateInputLabel,
   DateInput,
 } from "./styles";
-import { FaTimes, FaCheck } from 'react-icons/fa';
+import { FaTimes, FaCheck } from "react-icons/fa";
 
 const DateSelect = ({ onClose, onSearch }) => {
   const [startDate, setStartDate] = useState("");
@@ -22,7 +22,9 @@ const DateSelect = ({ onClose, onSearch }) => {
     <DateSelectOverlay>
       <DateSelectContainer>
         <h3>Select Date Range:</h3>
-        <CloseButton onClick={onClose}><FaTimes /></CloseButton>
+        <CloseButton onClick={onClose}>
+          <FaTimes />
+        </CloseButton>
         <DateInputLabel>Start Date:</DateInputLabel>
         <DateInput
           type="date"
@@ -35,7 +37,9 @@ const DateSelect = ({ onClose, onSearch }) => {
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-        <OkButton onClick={handleSearch}><FaCheck /></OkButton>
+        <OkButton onClick={handleSearch}>
+          <FaCheck />
+        </OkButton>
       </DateSelectContainer>
     </DateSelectOverlay>
   );

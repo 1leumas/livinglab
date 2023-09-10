@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const CustomTooltipContainer = styled.div`
   background-color: gray;
