@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SelectContainer = styled.div`
-  width: 200px;
-  margin-right: 10px;
 `;
 
 const StyledSelect = styled.select`

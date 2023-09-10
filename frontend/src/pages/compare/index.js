@@ -6,10 +6,11 @@ import CustomLineChart from "../../components/customLineChart";
 import Loading from "../../components/loading/loading.jsx";
 import Select from "../../components/select/Select";
 import Checkbox from "../../components/checkbox";
-import { ButtonContainer } from "./styles";
+import { ActionContainer, ButtonContainer } from "./styles";
 import { CheckboxContainer } from "../../components/checkbox/styles";
 import { CompareContainer } from "./styles";
 import ExportToCSV from "../../components/exportToCSV";
+import { ChartContainer } from "./styles";
 
 const Compare = () => {
   /*
@@ -159,7 +160,7 @@ const Compare = () => {
     <div>
       <Header />
       <CompareContainer>
-        <h1>Compare Devices</h1>
+        <h2>Compare Devices</h2>
         <ButtonContainer>
           <Select
             options={timeOptions}
@@ -191,39 +192,53 @@ const Compare = () => {
           ))}
         </CheckboxContainer>
 
-        <Select
-          options={devices.map((device) => ({ label: device, value: device }))}
-          value={selectedDevice1}
-          onChange={(e) => setSelectedDevice1(e.target.value)}
-          placeholder="Select Device for Chart 1"
-        />
+        {/*  Grafico 1 */}
+        <ChartContainer>
+          <ActionContainer>
+            <Select
+              options={devices.map((device) => ({
+                label: device,
+                value: device,
+              }))}
+              value={selectedDevice1}
+              onChange={(e) => setSelectedDevice1(e.target.value)}
+              placeholder="Select Device for Chart 1"
+            />
+            <ExportToCSV data={filteredData1} fileName="station_data_1.csv" />
+          </ActionContainer>
 
-        <ExportToCSV data={filteredData1} fileName="station_data_1.csv" />
+          {filteredData1.length > 0 && (
+            <CustomLineChart
+              data={filteredData1}
+              selectedMetrics={selectedMetrics}
+              strokeColors={strokeColors}
+            />
+          )}
+        </ChartContainer>
 
-        {filteredData1.length > 0 && (
-          <CustomLineChart
-            data={filteredData1}
-            selectedMetrics={selectedMetrics}
-            strokeColors={strokeColors}
-          />
-        )}
+       {/*  Grafico 2 */}
+        <ChartContainer>
+          <ActionContainer>
+            <Select
+              options={devices.map((device) => ({
+                label: device,
+                value: device,
+              }))}
+              value={selectedDevice2}
+              onChange={(e) => setSelectedDevice2(e.target.value)}
+              placeholder="Select Device for Chart 2"
+            />
+            <ExportToCSV data={filteredData2} fileName="station_data_2.csv" />
+          </ActionContainer>
 
-        <Select
-          options={devices.map((device) => ({ label: device, value: device }))}
-          value={selectedDevice2}
-          onChange={(e) => setSelectedDevice2(e.target.value)}
-          placeholder="Select Device for Chart 2"
-        />
-
-        <ExportToCSV data={filteredData2} fileName="station_data_2.csv" />
-
-        {filteredData2.length > 0 && (
-          <CustomLineChart
-            data={filteredData2}
-            selectedMetrics={selectedMetrics}
-            strokeColors={strokeColors}
-          />
-        )}
+          {filteredData2.length > 0 && (
+            <CustomLineChart
+              data={filteredData2}
+              selectedMetrics={selectedMetrics}
+              strokeColors={strokeColors}
+            />
+          )}
+        </ChartContainer>
       </CompareContainer>
     </div>
   );

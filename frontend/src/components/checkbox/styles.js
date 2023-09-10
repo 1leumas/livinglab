@@ -9,6 +9,7 @@ export const CheckboxContainer = styled.div`
 export const CheckboxLabel = styled.label`
   margin-left: 8px;
   font-size: 16px;
+  white-space: nowrap;
 `;
 
 export const StyledCheckbox = styled.input`
