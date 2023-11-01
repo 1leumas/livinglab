@@ -1,38 +1,46 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header";
-import { LatestDataCard, HomeContainer } from "./styles";
 import Loading from "../../components/loading/loading.jsx";
+import { HomeContainer, DataCard } from "./styles";
 
 const Home = () => {
-  const [latestData, setLatestData] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/data/latest")
-      .then((response) => response.json())
-      .then((data) => setLatestData(data.latest_data))
-      .catch((error) => console.log("Error fetching latest data:", error));
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/latest");
+        const data = await response.json();
+        if (data.status === "success" && data.data.length > 0) {
+          setData(data.data[0]);
+        } else {
+          console.error("No data found");
+        }
+      } catch (error) {
+        console.error("Error fetching latest data:", error);
+      }
+    };
 
-    console.log("Latest data:", latestData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchData();
   }, []);
 
   return (
     <div>
       <Header />
       <HomeContainer>
-      <h2>Latest Data</h2>
-      {latestData ? (
-        <LatestDataCard>
-          <p>Device: {latestData[2]}</p>
-          <h3>Temperature: {latestData[4]}°C</h3>
-          <p>Humidity: {latestData[6]}%</p>
-          <p>Noise: {latestData[3]}</p>
-          <p>Voltage: {latestData[5]}</p>
-          <p>Time: {latestData[8]}</p>
-        </LatestDataCard>
-      ) : (
-        <Loading />
-      )}
+        <h2>Latest Data</h2>
+        {data ? (
+          <DataCard>
+            <p>Device: {data.deviceName}</p>
+            <h3>Temperature: {data.temperature.toFixed(2)}°C</h3>
+            <p>Humidity: {data.humidity.toFixed(2)}%</p>
+            <p>Noise: {data.noise.toFixed(2)}</p>
+            <p>Voltage: {data.voltage.toFixed(2)}</p>
+            <p>Time: {new Date(data.time).toLocaleString()}</p>
+          </DataCard>
+        ) : (
+          <Loading />
+        )}
       </HomeContainer>
     </div>
   );

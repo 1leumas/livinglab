@@ -1,68 +1,22 @@
 # livinglab/
 # ├── backend/
-# │   ├── app/
-# │   │   ├── __pycache__/
-# │   │   ├── __init__.py
-# │   │   └── routes.py
+# │   ├── config/
+# │   │   └── dbPool.js
+# │   ├── middleware/
+# │   │   └── corsMiddleware.js
+# │   ├── node_modules/
+# │   ├── routes/
+# │   │   ├── compareRoutes.js
+# │   │   ├── dbInfoRoutes.js
+# │   │   ├── homeRoutes.js
+# │   │   └── trendsRoutes.js
+# │   ├── utils/
+# │   │   └── intervalFilter.js
 # │   ├── .env
 # │   ├── .env.example
 # │   ├── .gitignore
-# │   ├── requirements.txt
-# │   └── run.py
-# |
-# ├── frontend/
-# │   ├── node_modules/
-# │   ├── public/
-# │   │   ├── logounijui.png
-# │   │   └── index.html
-# │   ├── src/
-# │   │   ├── components/
-# │   │   │   ├── button/
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
-# │   │   │   ├── checkbox/
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
-# │   │   │   ├── customLineChart/
-# │   │   │   │   └── index.jsx
-# │   │   │   ├── CustomTooltip/
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
-# │   │   │   ├── dateSelect/
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
-# │   │   │   ├── exportToCSV/
-# │   │   │   │   └── index.jsx
-# │   │   │   ├── header/
-# │   │   │   │   ├── images/
-# │   │   │   │   │   └── logounijui.png
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
-# │   │   │   ├── intervalSelect/
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
-# │   │   │   ├── loading/
-# │   │   │   │   └── loading.jsx
-# │   │   │   ├── select/
-# │   │   │   │   └── Select.jsx
-# │   │   ├── pages/
-# │   │   │   ├── About/
-# │   │   │   │   └── index.jsx
-# │   │   │   ├── compare/
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
-# │   │   │   ├── home/
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
-# │   │   │   ├── trends/
-# │   │   │   │   ├── index.js
-# │   │   │   │   └── styles.js
-# │   │   ├── App.js
-# │   │   ├── index.css
-# │   │   ├── index.js
-# │   ├── .gitignore
 # │   ├── package-lock.json
 # │   ├── package.json
-# │   └── README.md
+# │   └── server.js
 # ├── README.md
 # └── structure.txt

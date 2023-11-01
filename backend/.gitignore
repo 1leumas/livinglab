@@ -1,4 +1,2 @@
 *.env
-*pyc
-meu_ambiente_virtual/
-__pycache__/
+/node_modules

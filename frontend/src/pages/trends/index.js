@@ -1,16 +1,19 @@
 // imports
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { TrendsContainer, ChartContainer } from "./styles";
+import {
+  TrendsContainer,
+  ChartContainer,
+  ButtonContainer,
+  CheckboxGroup,
+} from "./styles";
 import Header from "../../components/header";
 import Loading from "../../components/loading/loading.jsx";
 import Select from "../../components/select/Select";
 import IntervalSelect from "../../components/intervalSelect";
 import CustomLineChart from "../../components/customLineChart";
 import ExportToCSV from "../../components/exportToCSV";
-import DateSelect from "../../components/dateSelect";
 import Checkbox from "../../components/checkbox";
-import { ButtonContainer, CheckboxGroup } from "./styles";
 
 const Trends = () => {
   /*
@@ -21,17 +24,14 @@ const Trends = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [selectedTimeRange, setSelectedTimeRange] = useState("lastDay");
-  const [showDateSelect, setShowDateSelect] = useState(false);
   const [selectedMetrics, setSelectedMetrics] = useState({
     temperature: true,
     humidity: true,
     noise: false,
     voltage: false,
   });
-  const [selectedInterval, setSelectedInterval] = useState("all");
-  const [customInterval, setCustomInterval] = useState(1);
+  const [selectedInterval, setSelectedInterval] = useState("1h");
   const [showIntervalSelect, setShowIntervalSelect] = useState(false);
-  const [originalData, setOriginalData] = useState([]);
 
   const timeOptions = [
     { label: "Last Day", value: "lastDay" },
@@ -76,17 +76,19 @@ const Trends = () => {
 
   // Busca os dados da API
   const fetchData = async (dateRange = null) => {
-    console.log("Fetching Data");
     try {
       setLoading(true);
-      let url = `http://localhost:5000/api/trends?time_range=${selectedTimeRange}`;
-      if (dateRange) {
-        url += `&start_date=${dateRange.startDate}&end_date=${dateRange.endDate}`;
-      }
+      let url = `http://localhost:5000/api/trends?time_range=${selectedTimeRange}&interval=${selectedInterval}`;
       const response = await axios.get(url);
-      const transformedData = transformData(response.data.data);
+      const transformedData = response.data.data.map((item) => ({
+        device: item.deviceName,
+        temperature: item.temperature,
+        humidity: item.humidity,
+        noise: item.noise,
+        voltage: item.voltage,
+        time: new Date(item.time).toLocaleString(),
+      }));
       setData(transformedData);
-      setOriginalData(transformedData); // cópia para os dados nao serem apagados na memória
       setLoading(false);
     } catch (error) {
       console.error("Error fetching trends data:", error);
@@ -94,89 +96,23 @@ const Trends = () => {
     }
   };
 
-  // Transforma os dados da API em um array de objetos
-  const transformData = (rawData) => {
-    console.log("Transforming Data");
-    return rawData.map((item) => ({
-      device: item[2],
-      temperature: item[4],
-      humidity: item[6],
-      noise: item[3],
-      voltage: item[5],
-      time: new Date(item[8]).toLocaleString(),
-    }));
-  };
-
-  // Mudar o estado do intervalo de tempo (Horas) selecionado
-  const filterData = (intervalToUse = customInterval) => {
-    console.log("Filtering Data");
-    let filteredData = [...originalData]; // Começamos com todos os dados
-
-    if (selectedInterval !== "all") {
-      let intervalInHours;
-
-      if (selectedInterval === "custom") {
-        intervalInHours = intervalToUse;
-      } else {
-        intervalInHours = parseInt(selectedInterval.replace("h", ""), 10);
-      }
-
-      let nextTime = new Date(filteredData[0].time).getTime();
-      filteredData = filteredData.filter((item) => {
-        const currTime = new Date(item.time).getTime();
-        if (currTime >= nextTime) {
-          nextTime = currTime + intervalInHours * 60 * 60 * 1000;
-          return true;
-        }
-        return false;
-      });
-    }
-
-    setData(filteredData);
-  };
-  
-  // Mudar o estado do intervalo de tempo (Dias / Meses) selecionado
   const handleTimeRangeChange = (e) => {
-    console.log("Time Range Change");
     const newTimeRange = e.target.value;
-
-    if (newTimeRange === "custom") {
-      setShowDateSelect(true);
-      return;
-    }
-
     setSelectedTimeRange(newTimeRange);
+    fetchData();
   };
 
-  // Confirmar o intervalo de datas personalizado
-  const handleDateSearch = (startDate, endDate) => {
-    console.log("Custom Data Search");
-    fetchData({ startDate, endDate });
-  };
-
-  // Confirmar o intervalo personalizado
-  const handleIntervalConfirm = (customValue) => {
-    console.log("Interval Custom Confirm");
-    setCustomInterval(customValue);
-    filterData(customValue);
-    setShowIntervalSelect(false);
-  };
-
-  // Atualiza o estado do intervalo selecionado
   const handleIntervalChange = (e) => {
-    console.log("Interval Change");
     const value = e.target.value;
     setSelectedInterval(value);
     if (value === "custom") {
       setShowIntervalSelect(true); // Abre o componente de seleção de intervalo personalizado
     } else {
-      filterData();
+      fetchData();
     }
   };
 
-  // Atualiza o estado do checkbox selecionado
   const handleMetricChange = (e) => {
-    console.log("Metric Change");
     const value = e.target.checked;
     const name = e.target.name;
     setSelectedMetrics((prevMetrics) => ({
@@ -185,21 +121,18 @@ const Trends = () => {
     }));
   };
 
-  // Quando o componente é montado, buscamos os dados
+  const handleIntervalConfirm = (customValue) => {
+    setSelectedInterval(customValue);
+    fetchData();
+    setShowIntervalSelect(false);
+  };
+
   useEffect(() => {
-    console.log("Component Mount")
     fetchData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTimeRange]);
+  }, [selectedTimeRange, selectedInterval]);
 
-  // Quando os dados são atualizados, filtramos novamente
-  useEffect(() => {
-    filterData();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedInterval]);
-  
   /*
 
     Render
@@ -209,12 +142,6 @@ const Trends = () => {
   return (
     <div>
       <Header />
-      {showDateSelect && (
-        <DateSelect
-          onClose={() => setShowDateSelect(false)}
-          onSearch={handleDateSearch}
-        />
-      )}
       {showIntervalSelect && (
         <IntervalSelect
           onClose={() => setShowIntervalSelect(false)}

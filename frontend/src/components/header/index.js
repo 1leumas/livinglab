@@ -6,16 +6,16 @@ import {
   LogoTitleContainer,
   Navigation,
 } from "./styles";
-import logo from "./images/logounijui.png";
+import logo from "./images/ecotech.png";
 
 const Header = () => {
   return (
     <HeaderContainer>
       <LogoTitleContainer>
         <Link to="/">
-          <img src={logo} alt="Logo UniJui" width="100" height="100" />
+          <img src={logo} alt="Logo UniJui" width="150" height="100" />
         </Link>
-        <HeaderTitle>Living Lab</HeaderTitle>
+        <HeaderTitle>Eco Tech</HeaderTitle>
       </LogoTitleContainer>
       <Navigation>
         <Link to="/">Home</Link>

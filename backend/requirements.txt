@@ -1,5 +1,0 @@
-Flask
-psycopg2
-Flask-CORS
-gunicorn
-python-dotenv
