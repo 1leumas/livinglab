@@ -1,9 +1,54 @@
-const Home = () => {
-    return (
-      <div>
-        <h1>Home</h1>
-      </div>
-    );
-  };
-  
-  export default Home;
+import React, { useEffect, useState } from "react";
+import Loading from "../../components/Loading";
+
+/**
+ * Home Component
+ *
+ * esse componente é responsável por renderizar a página inicial
+ * ele mostra o ultimo dado captado pelo dispositivo
+ * 
+ */
+
+function Home() {
+  const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchLatestData() {
+      try {
+        const response = await fetch("http://localhost:5000/api/latest");
+        if (!response.ok) {
+          throw new Error("Network response was not ok ", response.statusText);
+        }
+        const data = await response.json();
+        setWeatherData(data.data[0]);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    }
+
+    fetchLatestData();
+  }, []);
+
+  if (loading) return <Loading />;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!weatherData) return <div>No weather data available</div>;
+
+  return (
+    <div>
+      <h2>Latest Data</h2>
+      <p>{weatherData.deviceName}</p>
+      <p>Temperature: {weatherData.temperature}°C</p>
+      <p>Humidity: {weatherData.humidity}%</p>
+      <p>Noise: {weatherData.noise}</p>
+      <p>Voltage: {weatherData.voltage}V</p>
+      <p>PM2.5: {weatherData.pm2_5}μg/m³</p>
+      <p>Time: {new Date(weatherData.time).toLocaleString()}</p>
+    </div>
+  );
+}
+
+export default Home;
