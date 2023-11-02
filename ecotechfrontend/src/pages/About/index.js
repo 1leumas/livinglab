@@ -1,5 +1,5 @@
-import { GlobalStyle, Container } from "../../styles/global";
-import { AboutContainer } from "./styles";
+import { GlobalStyle} from "../../styles/global";
+import { AboutContainer, Container } from "./styles";
 
 const About = () => {
   return (

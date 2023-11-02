@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import styled from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -9,16 +8,6 @@ export const GlobalStyle = createGlobalStyle`
   html, body, #root {
     margin: 0;
     padding: 0;
-    min-height: 95%;
+    min-height: 100vh;
   }
-`;
-
-export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
 `;

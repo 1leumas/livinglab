@@ -9,15 +9,13 @@ const { filterByInterval } = require("../utils/intervalFilter");
  *
  * @route GET /aeroporto
  * @query {string} time_range - o time range para filtrar os dados. opcoes: lastDay, lastWeek, lastMonth, last3Months, allTime.
- * @query {string} start_date - a data de inicio para filtrar os dados. formato: YYYY-MM-DDTHH:mm:ss.sssZ.
- * @query {string} end_date - a data de fim para filtrar os dados. formato: YYYY-MM-DDTHH:mm:ss.sssZ.
  * @query {string} interval - o intervalo para filtrar os dados. opcoes: all, 1h, 3h, 6h, 12h, 24h.
  * @returns {Object} objeto em json
  */
 router.get("/aeroporto", async (req, res) => {
   try {
     // extrair os parametros da query
-    const { time_range, start_date, end_date, interval } = req.query;
+    const { time_range, interval } = req.query;
 
     // inicia a query
     let query = `
@@ -29,13 +27,8 @@ router.get("/aeroporto", async (req, res) => {
     `;
     let params = ["Estação Aeroporto"];
 
-    // adiciona clausula para filtrar por data
-    if (start_date && end_date) {
-      query += " AND time >= $2 AND time <= $3";
-      params.push(start_date, end_date);
-    }
     // calcula a data de inicio baseado no time_range
-    else if (time_range) {
+    if (time_range) {
       let startDate = moment();
       switch (time_range) {
         case "lastDay":

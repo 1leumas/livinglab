@@ -9,15 +9,13 @@ const { filterByInterval } = require("../utils/intervalFilter");
  *
  * @route GET /particulas
  * @query {string} time_range - Intervalo de tempo para filtrar os dados. Opções: lastDay, lastWeek, lastMonth, last3Months, allTime.
- * @query {string} start_date - Data de início para filtrar os dados. Formato: YYYY-MM-DDTHH:mm:ss.sssZ.
- * @query {string} end_date - Data de término para filtrar os dados. Formato: YYYY-MM-DDTHH:mm:ss.sssZ.
  * @query {string} interval - Intervalo para filtrar os dados. Opções: all, ou qualquer string de intervalo válida.
  * @returns {Object} Objeto JSON contendo o status e os dados.
  */
 router.get("/particulas", async (req, res) => {
   try {
     // Extrai os parâmetros da query
-    const { time_range, start_date, end_date, interval } = req.query;
+    const { time_range, interval } = req.query;
 
     // Inicializa a query para selecionar dados da tabela
     let query = `
@@ -27,13 +25,8 @@ router.get("/particulas", async (req, res) => {
     `;
     let params = [];
 
-    // Adiciona cláusulas à query para filtrar por intervalo de tempo, se as datas de início e término estiverem presentes
-    if (start_date && end_date) {
-      query += " AND time >= $1 AND time <= $2";
-      params.push(start_date, end_date);
-    }
     // Calcula a data de início com base no intervalo de tempo fornecido e adiciona uma cláusula à query, se o time_range estiver presente
-    else if (time_range) {
+    if (time_range) {
       let startDate = moment();
       switch (time_range) {
         case "lastDay":
@@ -56,7 +49,7 @@ router.get("/particulas", async (req, res) => {
             .status(400)
             .json({ status: "error", message: "Intervalo de tempo inválido" });
       }
-      query += " AND time >= $3";
+      query += " AND time >= $1";
       params.push(startDate.toISOString());
     }
 

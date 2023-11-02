@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
-import { GlobalStyle, Container } from "../../styles/global";
+import { GlobalStyle } from "../../styles/global";
 import { DataCard } from "./styles";
-import { DataCardTitle, DataCardValue } from "./styles";
+import { DataCardTitle, DataCardValue, Container } from "./styles";
 
 /**
  * Home Component
@@ -18,7 +18,7 @@ function Home() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchLatestData() {
+    async function fetchData() {
       try {
         setLoading(true);
         const response = await fetch("http://localhost:5000/api/latest");
@@ -34,7 +34,7 @@ function Home() {
       }
     }
 
-    fetchLatestData();
+    fetchData();
   }, []);
 
   if (loading) return <Loading />;

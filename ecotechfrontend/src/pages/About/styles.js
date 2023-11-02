@@ -9,3 +9,13 @@ export const AboutContainer = styled.div`
   align-items: center;
   padding: 20px;
 `;
+
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+`;

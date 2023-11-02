@@ -27,3 +27,13 @@ export const DataCardValue = styled.p`
   font-weight: 500;
   margin-bottom: 20px;
 `;
+
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+`;
