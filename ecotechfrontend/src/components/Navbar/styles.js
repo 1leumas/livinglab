@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
  */
 
 export const Nav = styled.div`
-  background-color: #060b26;
+  background-color: #010e32;
   height: 80px;
   display: flex;
   justify-content: start;
@@ -22,7 +22,7 @@ export const NavLink = styled(Link)`
 `;
 
 export const NavMenu = styled.nav`
-  background-color: #060b26;
+  background-color: #010e32;
   width: 250px;
   height: 100vh;
   display: flex;
@@ -31,6 +31,7 @@ export const NavMenu = styled.nav`
   top: 0;
   left: -100%;
   transition: 850ms;
+  z-index: 1000; // Set a high z-index value // overwrites the default value of 1
 
   &.active {
     left: 0;
@@ -68,7 +69,7 @@ export const NavTextLink = styled(Link)`
 `;
 
 export const NavbarToggle = styled.li`
-  background-color: #060b26;
+  background-color: #010e32;
   width: 100%;
   height: 80px;
   display: flex;
@@ -85,11 +86,13 @@ export const LogoContainer = styled.div`
   align-items: center;
   margin-left: auto;
   padding: 10px;
+  background-color: #010e32;
 `;
 
 export const LogoImage = styled.img`
   height: 60px;
   margin-right: 1rem;
+  background-color: #010e32;
 `;
 
 export const LogoText = styled.p`

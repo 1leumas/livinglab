@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
+import { GlobalStyle, Container } from "../../styles/global";
+import { DataCard } from "./styles";
+import { DataCardTitle, DataCardValue } from "./styles";
 
 /**
  * Home Component
  *
  * esse componente é responsável por renderizar a página inicial
  * ele mostra o ultimo dado captado pelo dispositivo
- * 
+ *
  */
 
 function Home() {
@@ -17,6 +20,7 @@ function Home() {
   useEffect(() => {
     async function fetchLatestData() {
       try {
+        setLoading(true);
         const response = await fetch("http://localhost:5000/api/latest");
         if (!response.ok) {
           throw new Error("Network response was not ok ", response.statusText);
@@ -38,16 +42,21 @@ function Home() {
   if (!weatherData) return <div>No weather data available</div>;
 
   return (
-    <div>
-      <h2>Latest Data</h2>
-      <p>{weatherData.deviceName}</p>
-      <p>Temperature: {weatherData.temperature}°C</p>
-      <p>Humidity: {weatherData.humidity}%</p>
-      <p>Noise: {weatherData.noise}</p>
-      <p>Voltage: {weatherData.voltage}V</p>
-      <p>PM2.5: {weatherData.pm2_5}μg/m³</p>
-      <p>Time: {new Date(weatherData.time).toLocaleString()}</p>
-    </div>
+    <>
+      <GlobalStyle />
+      <Container>
+        <DataCard>
+          <DataCardTitle>Latest Data</DataCardTitle>
+          <DataCardValue>{weatherData.deviceName}</DataCardValue>
+          <DataCardValue>Temperature: {weatherData.temperature}°C</DataCardValue>
+          <DataCardValue>Humidity: {weatherData.humidity}%</DataCardValue>
+          <DataCardValue>Noise: {weatherData.noise}dB</DataCardValue>
+          <DataCardValue>Voltage: {weatherData.voltage}V</DataCardValue>
+          <DataCardValue>PM2.5: {weatherData.pm2_5}μg/m³</DataCardValue>
+          <DataCardValue>Time: {new Date(weatherData.time).toLocaleString()}</DataCardValue>
+        </DataCard>
+      </Container>
+    </>
   );
 }
 
