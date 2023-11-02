@@ -12,7 +12,7 @@ router.get("/latest", async (req, res) => {
   try {
     // Query para buscar os dados mais recentes da tabela
     const query = `
-      SELECT "deviceName", "temperature", "humidity", "noise", "voltage", "time"
+      SELECT "deviceName", "temperature", "humidity", "noise", "voltage", "time", "pm2_5"
       FROM k72623_lo
       ORDER BY "time" DESC
       LIMIT 1
