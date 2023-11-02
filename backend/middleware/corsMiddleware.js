@@ -1,11 +1,30 @@
-const cors = require('cors');
+const cors = require("cors");
 
-// config do CORS
+/**
+ * Configuração do CORS (Cross-Origin Resource Sharing).
+ * CORS é um mecanismo que permite que recursos em uma página web sejam
+ * solicitados de um domínio diferente do domínio da própria aplicação.
+ *
+ * @module CorsMiddleware
+ */
+
+/**
+ * Opções de configuração do CORS.
+ * @type {Object}
+ */
 const corsOptions = {
-  origin: 'http://localhost:3000', // URL do frontend
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  // URL do frontend que está permitido acessar os recursos do backend
+  origin: "http://localhost:3000",
+
+  // Código de status HTTP a ser retornado para navegadores antigos que
+  // podem ter problemas com o código de status padrão 204.
+  optionsSuccessStatus: 200,
 };
 
+/**
+ * Middleware do Express para habilitar o CORS com as opções definidas.
+ * @type {Function}
+ */
 const corsMiddleware = cors(corsOptions);
 
 module.exports = corsMiddleware;

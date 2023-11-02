@@ -1,26 +1,53 @@
-// imports
+// Importações
 const express = require("express");
 require("dotenv").config();
 
-// instancia do servidor Express
-const app = express();
-const PORT = 5000;
+/**
+ * Configuração e inicialização do servidor Express.
+ *
+ * @module Server
+ */
 
-// import das rotas
-const homeRoutes = require("./routes/homeRoutes");
-const trendsRoutes = require("./routes/trendsRoutes");
-const compareRoutes = require("./routes/compareRoutes");
-const dbInfoRoutes = require("./routes/dbInfoRoutes");
+/**
+ * Instância do servidor Express.
+ * @type {Express}
+ */
+const app = express();
+
+/**
+ * Porta na qual o servidor será executado.
+ * @type {number}
+ */
+const PORT = process.env.PORT || 5000;
+
+/**
+ * Importação das rotas.
+ */
+const homeRoute = require("./routes/homeRoute");
+const particulasRoute = require("./routes/particulasRoute");
+const aeroportoRoute = require("./routes/aeroportoRoute");
+const cruzeiroRoute = require("./routes/cruzeiroRoute");
+const dbInfoRoute = require("./routes/dbInfoRoute");
+
+/**
+ * Importação do middleware de CORS.
+ */
 const corsMiddleware = require("./middleware/corsMiddleware");
 
-// middleware cors
+/**
+ * Configuração do middleware de CORS.
+ */
 app.use(corsMiddleware);
 
-// definindo as rotas para os endpoints
-app.use("/api", homeRoutes, trendsRoutes, compareRoutes);
-app.use("/info", dbInfoRoutes);
+/**
+ * Definição das rotas para os endpoints.
+ */
+app.use("/api", homeRoute, particulasRoute, aeroportoRoute, cruzeiroRoute);
+app.use("/info", dbInfoRoute);
 
-// iniciando o servidor
+/**
+ * Inicialização do servidor.
+ */
 app.listen(PORT, () => {
-  console.log(`running on port: ${PORT}`);
+  console.log(`Servidor executando na porta: ${PORT}`);
 });

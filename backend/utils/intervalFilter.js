@@ -12,16 +12,19 @@
  */
 const filterByInterval = (data, interval) => {
   // Se o intervalo não for especificado ou for 'all', retorna todos os dados sem filtragem.
-  if (!interval || interval === 'all') return data;
+  if (!interval || interval === "all") return data;
 
   // converte o intervalo de string para numero
-  const intervalInHours = parseInt(interval.replace('h', ''), 10);
+  const intervalInHours = parseInt(interval.replace("h", ""), 10);
   const intervalInMillis = intervalInHours * 60 * 60 * 1000;
 
   // reduz o array de dados para manter apenas os pontos de dados que estao no intervalo de tempo
   return data.reduce((filtered, current) => {
     const currentTime = new Date(current.time).getTime();
-    const lastTime = filtered.length > 0 ? new Date(filtered[filtered.length - 1].time).getTime() : 0;
+    const lastTime =
+      filtered.length > 0
+        ? new Date(filtered[filtered.length - 1].time).getTime()
+        : 0;
 
     // Se o ponto de dados atual estiver no intervalo de tempo especificado em relação ao último ponto de dados mantido, adiciona-o ao array filtrado.
     if (currentTime - lastTime >= intervalInMillis || lastTime === 0) {
