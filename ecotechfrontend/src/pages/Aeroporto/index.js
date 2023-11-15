@@ -1,16 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  TimeScale,
-} from "chart.js";
-import "chartjs-adapter-moment";
 import { Line } from "react-chartjs-2";
 import Dropdown from "../../components/Dropdown";
 import { GlobalStyle } from "../../styles/global";
@@ -25,18 +13,6 @@ import Loading from "../../components/Loading";
 import { getUnitForLabel, getPeakValues } from "../../utils/getPeakValues";
 import { chartOptions } from "../../utils/chartOptions";
 import SquareCard from "../../components/SquareCard";
-
-// Register the necessary chart.js components
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  TimeScale
-);
 
 // Dropdown options for time range and interval selection
 const timeRangeOptions = [
@@ -54,6 +30,8 @@ const intervalOptions = [
   { label: "7h", value: "7h" },
   { label: "All Data", value: "all" },
 ];
+
+
 
 /**
  * Aeroporto is a React component that renders environmental data for a specific station.
@@ -196,7 +174,6 @@ const Aeroporto = () => {
   const handleIntervalChange = (event) => setInterval(event.target.value);
 
   // Conditional rendering based on loading and error states
-  if (loading) return <Loading />;
   if (error) return <div>Error: {error.message}</div>;
   if (!chartData) return <div>No weather data available</div>;
 
@@ -205,38 +182,44 @@ const Aeroporto = () => {
 
   return (
     <>
-      <GlobalStyle />
-      <Container>
-        <StationTitle>Estação Aeroporto</StationTitle>
-        <DropdownContainer>
-          <Dropdown
-            options={timeRangeOptions}
-            onChange={handleTimeRangeChange}
-            value={timeRange}
-          />
-          <Dropdown
-            options={intervalOptions}
-            onChange={handleIntervalChange}
-            value={interval}
-          />
-        </DropdownContainer>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <GlobalStyle />
+          <Container>
+            <StationTitle>Estação Aeroporto</StationTitle>
+            <DropdownContainer>
+              <Dropdown
+                options={timeRangeOptions}
+                onChange={handleTimeRangeChange}
+                value={timeRange}
+              />
+              <Dropdown
+                options={intervalOptions}
+                onChange={handleIntervalChange}
+                value={interval}
+              />
+            </DropdownContainer>
 
-        <ChartContainer>
-          <Line options={chartOptions} data={chartData} />
-        </ChartContainer>
+            <ChartContainer>
+              <Line options={chartOptions} data={chartData} />
+            </ChartContainer>
 
-        <h2>Peak Values</h2>
-        <CardContainer>
-          {peakValues.map((value, index) => (
-            <SquareCard
-              key={index}
-              label={value.label}
-              value={value.peakValue}
-              unit={getUnitForLabel(value.label)}
-            />
-          ))}
-        </CardContainer>
-      </Container>
+            <h2>Peak Values</h2>
+            <CardContainer>
+              {peakValues.map((value, index) => (
+                <SquareCard
+                  key={index}
+                  label={value.label}
+                  value={value.peakValue}
+                  unit={getUnitForLabel(value.label)}
+                />
+              ))}
+            </CardContainer>
+          </Container>
+        </>
+      )}
     </>
   );
 };
