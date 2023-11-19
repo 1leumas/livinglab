@@ -3,10 +3,18 @@ const getLatestData = require("../use_cases/latestData");
 async function latestController(req, res) {
   try {
     const data = await getLatestData();
-    res.json({ status: "success", data });
+    const formattedJson = JSON.stringify({ status: "success", data }, null, 2);
+
+    res.setHeader("Content-Type", "application/json");
+    res.send(formattedJson);
   } catch (error) {
     console.error("Error: ", error);
-    res.status(500).json({ status: "error", message: error.message });
+    const formattedError = JSON.stringify(
+      { status: "error", message: error.message },
+      null,
+      2
+    );
+    res.status(500).send(formattedError);
   }
 }
 

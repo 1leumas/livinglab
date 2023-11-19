@@ -4,10 +4,18 @@ async function stationController(req, res, station) {
   try {
     const { time_range, interval } = req.query;
     const data = await getStationData(time_range, interval, station);
-    res.json({ status: "success", data });
+    const formattedJson = JSON.stringify({ status: "success", data }, null, 2);
+
+    res.setHeader("Content-Type", "application/json");
+    res.send(formattedJson);
   } catch (error) {
     console.error("Error: ", error);
-    res.status(500).json({ status: "error", message: error.message });
+    const formattedError = JSON.stringify(
+      { status: "error", message: error.message },
+      null,
+      2
+    );
+    res.status(500).send(formattedError);
   }
 }
 

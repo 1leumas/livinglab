@@ -1,4 +1,3 @@
-// src/repositories/particulasRepository.js
 const pool = require("../config/dbConfig");
 const moment = require("moment");
 
