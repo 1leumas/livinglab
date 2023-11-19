@@ -3,7 +3,7 @@ const moment = require("moment");
 
 async function fetchParticlesData(timeRange) {
   let query = `
-        SELECT "deviceName", "temperature", "humidity", "noise", "voltage", "time", "pm2_5"
+        SELECT "deviceName", "time", "temperature", "humidity", "pm2_5", "noise", "voltage"
         FROM k72623_lo
         WHERE 1=1
     `;

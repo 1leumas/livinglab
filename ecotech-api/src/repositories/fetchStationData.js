@@ -4,8 +4,8 @@ const moment = require("moment");
 async function fetchStationData(timeRange, station) {
   let query = `
         SELECT 
-            "emw_rain_lvl", "emw_avg_wind_speed", "emw_gust_wind_speed", "emw_wind_direction", "emw_temperature", "emw_humidity", 
-            "emw_luminosity", "emw_uv", "emw_solar_radiation", "emw_atm_pres", "internal_temperature", "internal_humidity", "time", "deviceName"
+            "deviceName", "time", "emw_temperature", "emw_humidity", "emw_rain_lvl", "emw_avg_wind_speed", "emw_gust_wind_speed", "emw_atm_pres",
+            "emw_wind_direction", "emw_uv", "emw_solar_radiation", "emw_luminosity", "internal_temperature", "internal_humidity"
         FROM nit2xli
         WHERE "deviceName" = $1
     `;
