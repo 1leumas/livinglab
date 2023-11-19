@@ -12,7 +12,6 @@ export default function Navbar() {
         sx={{ fontSize: "3rem", color: "white" }}
       />
       <div className="flex justify-center items-center">
-        <span className="text-3xl text-white font-semibold"> Eco Tech </span>
         <img src="/logo.png" alt="logo" width="100px" height="100px" />
       </div>
     </header>
