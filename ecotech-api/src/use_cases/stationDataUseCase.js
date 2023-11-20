@@ -1,7 +1,7 @@
 const { fetchStationData } = require("../repositories/fetchStationData");
 const { filterByInterval } = require("../utils/intervalFilter");
 
-async function getStationData(timeRange, interval, station) {
+async function stationDataUseCase(timeRange, interval, station) {
   try {
     const data = await fetchStationData(timeRange, station);
 
@@ -16,4 +16,4 @@ async function getStationData(timeRange, interval, station) {
   }
 }
 
-module.exports = getStationData;
+module.exports = stationDataUseCase;

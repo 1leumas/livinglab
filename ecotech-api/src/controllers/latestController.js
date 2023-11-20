@@ -1,8 +1,8 @@
-const getLatestData = require("../use_cases/latestData");
+const getLatestDataUseCase = require("../use_cases/latestDataUseCase");
 
 async function latestController(req, res) {
   try {
-    const data = await getLatestData();
+    const data = await getLatestDataUseCase();
     const formattedJson = JSON.stringify({ status: "success", data }, null, 2);
 
     res.setHeader("Content-Type", "application/json");

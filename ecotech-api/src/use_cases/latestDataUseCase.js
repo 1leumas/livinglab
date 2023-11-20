@@ -1,6 +1,6 @@
 const { getParticlesData } = require("../repositories/getParticlesData");
 
-async function getLatestData() {
+async function latestDataUseCase() {
   try {
     const data = await getParticlesData();
     return data;
@@ -10,4 +10,4 @@ async function getLatestData() {
   }
 }
 
-module.exports =  getLatestData;
+module.exports =  latestDataUseCase;

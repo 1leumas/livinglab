@@ -1,9 +1,9 @@
-const getParticlesData = require("../use_cases/particlesData");
+const particlesDataUseCase = require("../use_cases/particlesDataUseCase");
 
 async function particlesController(req, res) {
   try {
     const { time_range, interval } = req.query;
-    const data = await getParticlesData(time_range, interval);
+    const data = await particlesDataUseCase(time_range, interval);
     const formattedJson = JSON.stringify({ status: "success", data }, null, 2);
 
     res.setHeader("Content-Type", "application/json");

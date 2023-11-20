@@ -1,7 +1,7 @@
 const { fetchParticlesData } = require("../repositories/fetchParticlesData");
 const { filterByInterval } = require("../utils/intervalFilter");
 
-async function getParticlesData(timeRange, interval) {
+async function particlesDataUseCase(timeRange, interval) {
   try {
     const data = await fetchParticlesData(timeRange);
 
@@ -16,4 +16,4 @@ async function getParticlesData(timeRange, interval) {
   }
 }
 
-module.exports = getParticlesData;
+module.exports = particlesDataUseCase;

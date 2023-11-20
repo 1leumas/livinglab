@@ -1,9 +1,9 @@
-const getStationData = require("../use_cases/stationData");
+const stationDataUseCase = require("../use_cases/stationDataUseCase");
 
 async function stationController(req, res, station) {
   try {
     const { time_range, interval } = req.query;
-    const data = await getStationData(time_range, interval, station);
+    const data = await stationDataUseCase(time_range, interval, station);
     const formattedJson = JSON.stringify({ status: "success", data }, null, 2);
 
     res.setHeader("Content-Type", "application/json");
