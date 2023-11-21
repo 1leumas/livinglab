@@ -14,6 +14,7 @@ export const DataCard = styled.div`
   border-radius: 5px;
   position: relative;
   box-shadow: 0px 5px 30px -5px rgba(0, 0, 0, 0.1);
+  color: black;
 `;
 
 export const DataCardValue = styled.p`

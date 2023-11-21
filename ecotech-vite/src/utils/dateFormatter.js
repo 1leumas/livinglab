@@ -1,4 +1,4 @@
-const formatDateAndTime = (dateString) => {
+export const formatDateAndTime = (dateString) => {
   const date = new Date(dateString);
   return `${date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -11,4 +11,9 @@ const formatDateAndTime = (dateString) => {
   })}`;
 };
 
-export default formatDateAndTime;
+export const formatChartDate = (dateString) => {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+};

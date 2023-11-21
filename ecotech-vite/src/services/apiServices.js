@@ -5,7 +5,7 @@ export const fetchCruzeiroData = async (timeRange, interval) => {
     const res = await axiosApiInstance.get(
       `/cruzeiro?time_range=${timeRange}&interval=${interval}`
     );
-    return res.data.data;
+    return res.data;
   } catch (error) {
     console.log(error);
   }
@@ -16,7 +16,7 @@ export const fetchAeroportoData = async (timeRange, interval) => {
     const res = await axiosApiInstance.get(
       `/aeroporto?time_range=${timeRange}&interval=${interval}`
     );
-    return res.data.data;
+    return res.data;
   } catch (error) {
     console.log(error);
   }
@@ -27,7 +27,7 @@ export const fetchParticlesData = async (timeRange, interval) => {
     const res = await axiosApiInstance.get(
       `/particles?time_range=${timeRange}&interval=${interval}`
     );
-    return res.data.data;
+    return res.data;
   } catch (error) {
     console.log(error);
   }
@@ -36,7 +36,7 @@ export const fetchParticlesData = async (timeRange, interval) => {
 export const getLatestData = async () => {
   try {
     const res = await axiosApiInstance.get("/latest");
-    return res.data.data;
+    return res.data;
   } catch (error) {
     console.log(error);
   }

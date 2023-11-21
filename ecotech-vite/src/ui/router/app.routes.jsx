@@ -1,7 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../pages/Error";
 import Home from "../pages/Home";
+import Particles from "../pages/Particles";
+import Aeroporto from "../pages/Aeroporto";
+import Cruzeiro from "../pages/Cruzeiro";
 import Layout from "../pages/layout";
+import About from "../pages/About";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +25,7 @@ const router = createBrowserRouter([
     path: "/particles",
     element: (
       <Layout>
-        <Home />
+        <Particles />
       </Layout>
     ),
   },
@@ -29,7 +33,7 @@ const router = createBrowserRouter([
     path: "/aeroporto",
     element: (
       <Layout>
-        <Home />
+        <Aeroporto />
       </Layout>
     ),
   },
@@ -37,7 +41,7 @@ const router = createBrowserRouter([
     path: "/cruzeiro",
     element: (
       <Layout>
-        <Home />
+        <Cruzeiro />
       </Layout>
     ),
   },
@@ -45,7 +49,7 @@ const router = createBrowserRouter([
     path: "/about",
     element: (
       <Layout>
-        <Home />
+        <About />
       </Layout>
     ),
   },
