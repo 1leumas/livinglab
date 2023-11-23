@@ -4,8 +4,9 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: rgb(239, 239, 239);
+  color: black;
+
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -22,4 +23,7 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
+  background-color: #ffffff;
+  color: black;
+  height: 100vh;
 }

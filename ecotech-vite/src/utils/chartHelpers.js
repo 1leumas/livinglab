@@ -1,23 +1,23 @@
 const keyDisplayNameMapping = {
   // station
-  emw_temperature: "Temperature",
-  emw_humidity: "Humidity",
-  emw_rain_lvl: "Rain Level",
-  emw_avg_wind_speed: "Average Wind Speed",
-  emw_gust_wind_speed: "Gust Wind Speed",
-  emw_atm_pres: "Atmospheric Pressure",
-  emw_wind_direction: "Wind Direction",
-  emw_uv: "UV",
-  emw_solar_radiation: "Solar Radiation",
-  emw_luminosity: "Luminosity",
-  internal_temperature: "Internal Temperature",
-  internal_humidity: "Internal Humidity",
+  emw_temperature: { name: "Temperature", unit: "°C" },
+  emw_humidity: { name: "Humidity", unit: "%" },
+  emw_rain_lvl: { name: "Rain Level", unit: "mm" },
+  emw_avg_wind_speed: { name: "Average Wind Speed", unit: "m/s" },
+  emw_gust_wind_speed: { name: "Gust Wind Speed", unit: "m/s" },
+  emw_atm_pres: { name: "Atmospheric Pressure", unit: "hPa" },
+  emw_wind_direction: { name: "Wind Direction", unit: "°" },
+  emw_uv: { name: "UV", unit: "" },
+  emw_solar_radiation: { name: "Solar Radiation", unit: "W/m²" },
+  emw_luminosity: { name: "Luminosity", unit: "lux" },
+  internal_temperature: { name: "Internal Temperature", unit: "°C" },
+  internal_humidity: { name: "Internal Humidity", unit: "%" },
   // particles
-  temperature: "Temperature",
-  humidity: "Humidity",
-  pm2_5: "PM2.5",
-  noise: "Noise",
-  voltage: "Voltage",
+  temperature: { name: "Temperature", unit: "°C" },
+  humidity: { name: "Humidity", unit: "%" },
+  pm2_5: { name: "PM2.5", unit: "µg/m³" },
+  noise: { name: "Noise", unit: "dB" },
+  voltage: { name: "Voltage", unit: "V" },
 };
 export const lineColors = [
   "#fa8072", // Salmon 1
@@ -37,7 +37,6 @@ export const lineColors = [
   "#ff00ff", // Magenta
 ];
 
-// Function to determine which keys to plot
 export const getKeysToPlot = (dataObject) => {
   // Check if the data object contains a key 'emw_temperature'
   if (dataObject.emw_temperature !== undefined) {
@@ -46,7 +45,8 @@ export const getKeysToPlot = (dataObject) => {
       .filter((key) => key.startsWith("emw_") || key.startsWith("internal_"))
       .map((key) => ({
         key, // The actual key in the data object
-        name: keyDisplayNameMapping[key] || key, // The display name from the mapping or the key itself if no mapping is found
+        name: keyDisplayNameMapping[key]?.name || key, // The display name from the mapping or the key itself if no mapping is found
+        unit: keyDisplayNameMapping[key]?.unit || "", // The unit from the mapping or an empty string if no unit is found
       }));
   }
   // Check if the data object contains a key 'temperature'
@@ -55,7 +55,8 @@ export const getKeysToPlot = (dataObject) => {
     return ["temperature", "humidity", "pm2_5", "noise", "voltage"].map(
       (key) => ({
         key, // The actual key in the data object
-        name: keyDisplayNameMapping[key] || key, // The display name from the mapping or the key itself if no mapping is found
+        name: keyDisplayNameMapping[key]?.name || key, // The display name from the mapping or the key itself if no mapping is found
+        unit: keyDisplayNameMapping[key]?.unit || "", // The unit from the mapping or an empty string if no unit is found
       })
     );
   }
@@ -67,9 +68,7 @@ export const getKeysToPlot = (dataObject) => {
 export const getDefaultSelectedKeys = (dataObject) => {
   const keys = [];
   if (dataObject.emw_temperature !== undefined) {
-    keys.push("emw_temperature", "emw_humidity");
-  } else if (dataObject.temperature !== undefined) {
-    keys.push("temperature", "humidity");
+    keys.push("emw_temperature", "emw_humidity", "temperature", "humidity");
   }
   return keys;
 };

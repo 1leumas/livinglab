@@ -1,28 +1,24 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-/*
- * Navbar styles
- *
- * Esse componente é responsável por estilizar a barra de navegação
- */
-
 export const Nav = styled.div`
-  background-color: #010e41;
+  background-color: rgba(35, 37, 38, 0.95); // Dark grey with slight transparency
   height: 80px;
   display: flex;
   justify-content: start;
   align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Subtle shadow for depth
 `;
 
 export const NavLink = styled(Link)`
   margin-left: 2rem;
   font-size: 2rem;
   background: none;
+  color: #f5f5f5; // Light color for contrast
 `;
 
 export const NavMenu = styled.nav`
-  background-color: #010e41;
+  background-color: rgba(35, 37, 38, 0.95); // Consistent with Nav
   width: 250px;
   height: 100vh;
   display: flex;
@@ -31,7 +27,7 @@ export const NavMenu = styled.nav`
   top: 0;
   left: -100%;
   transition: 850ms;
-  z-index: 1000; // Set a high z-index value // overwrites the default value of 1
+  z-index: 1000;
 
   &.active {
     left: 0;
@@ -64,12 +60,12 @@ export const NavTextLink = styled(Link)`
   border-radius: 4px;
 
   &:hover {
-    background-color: #1a83ff;
+    background-color: #1a83ff; // Bright color for hover effect
   }
 `;
 
 export const NavbarToggle = styled.li`
-  background-color: #010e41;
+  background-color: rgba(35, 37, 38, 0.95); // Consistent with Nav
   width: 100%;
   height: 80px;
   display: flex;
@@ -79,6 +75,7 @@ export const NavbarToggle = styled.li`
 
 export const Span = styled.span`
   margin-left: 16px;
+  color: #f5f5f5; // Light color for contrast
 `;
 
 export const LogoContainer = styled.div`
@@ -86,11 +83,9 @@ export const LogoContainer = styled.div`
   align-items: center;
   margin-left: auto;
   padding: 10px;
-  background-color: #010e41;
 `;
 
 export const LogoImage = styled.img`
   height: 60px;
   margin-right: 1rem;
-  background-color: #010e41;
 `;
