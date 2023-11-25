@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "recharts";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChartContainer, CheckboxContainer, CheckBox } from "./styles";
 import CustomTooltip from "./CustomTooltip";
 import {
@@ -19,11 +19,9 @@ import {
 import { formatChartDate } from "../../../utils/dateFormatter";
 
 const Chart = ({ data }) => {
-  const [selectedKeys, setSelectedKeys] = useState(
-    data && data.length > 0 ? getDefaultSelectedKeys(data[0]) : []
-  );
+  const [selectedKeys, setSelectedKeys] = useState([]);
 
-  //console.log(selectedKeys)
+  //console.log("selectedKeys: ", selectedKeys);
 
   // checkbox change handler
   const handleCheckboxChange = (key) => {
@@ -47,6 +45,13 @@ const Chart = ({ data }) => {
       </label>
     ));
   };
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const newSelectedKeys = getDefaultSelectedKeys(data[0]);
+      setSelectedKeys(newSelectedKeys);
+    }
+  }, [data]);
 
   const keysToPlot = data.length > 0 ? getKeysToPlot(data[0]) : [];
   //console.log(keysToPlot);

@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import Chart from "../../components/Chart";
 import PeakDataCards from "../../components/PeakDataCards";
-import { TitleContainer } from "./styles";
+import { TitleContainer, FilterContainer } from "./styles";
 import { useLocation } from "react-router-dom";
 import {
   timeRangeOptions,
@@ -16,10 +16,10 @@ import {
 
 const fetchDataBasedOnPath = (path, timeRange, interval) => {
   switch (path) {
-    case "/aeroporto":
-      return fetchAeroportoData(timeRange, interval);
     case "/particles":
       return fetchParticlesData(timeRange, interval);
+    case "/aeroporto":
+      return fetchAeroportoData(timeRange, interval);
     case "/cruzeiro":
       return fetchCruzeiroData(timeRange, interval);
     default:
@@ -29,14 +29,14 @@ const fetchDataBasedOnPath = (path, timeRange, interval) => {
 
 const determineTitle = (path) => {
   switch (path) {
-    case "/aeroporto":
-      return "Estação Aeroporto";
     case "/particles":
       return "Micropartículas Rótula do Tafarel";
+    case "/aeroporto":
+      return "Estação Aeroporto";
     case "/cruzeiro":
       return "Estação Cruzeiro";
     default:
-      return "Default Title";
+      return "";
   }
 };
 
@@ -68,9 +68,9 @@ const DynamicPage = () => {
       <TitleContainer>
         <h1>{title}</h1>
       </TitleContainer>
-      <div>
+      <FilterContainer>
         <label>
-          Time Range:
+          Time Range: &nbsp;
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value)}
@@ -84,7 +84,7 @@ const DynamicPage = () => {
         </label>
 
         <label>
-          Interval:
+          Interval: &nbsp;
           <select
             value={interval}
             onChange={(e) => setInterval(e.target.value)}
@@ -96,7 +96,7 @@ const DynamicPage = () => {
             ))}
           </select>
         </label>
-      </div>
+      </FilterContainer>
 
       <Chart data={data} />
       <PeakDataCards data={data} />

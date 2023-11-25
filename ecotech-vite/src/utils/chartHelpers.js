@@ -68,7 +68,9 @@ export const getKeysToPlot = (dataObject) => {
 export const getDefaultSelectedKeys = (dataObject) => {
   const keys = [];
   if (dataObject.emw_temperature !== undefined) {
-    keys.push("emw_temperature", "emw_humidity", "temperature", "humidity");
+    keys.push("emw_temperature", "emw_humidity")
+  } else if (dataObject.temperature !== undefined) {
+    keys.push("temperature", "humidity")
   }
   return keys;
 };
