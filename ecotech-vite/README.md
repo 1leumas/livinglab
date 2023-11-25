@@ -41,13 +41,13 @@ yarn install
 Start the development server with:
 
 ```bash
-npm run start
+npm run dev
 ```
 
 or with yarn:
 
 ```bash
-yarn start
+yarn dev
 ```
 
 The application should now be running and accessible at http://localhost:5173.
