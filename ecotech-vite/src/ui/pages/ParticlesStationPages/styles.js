@@ -15,4 +15,6 @@ export const FilterContainer = styled.div`
   gap: 2rem;
   font-size: 1rem;
   font-weight: 600;
+  max-width: 75%;
+  margin: auto;
 `;
