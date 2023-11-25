@@ -4,17 +4,18 @@ This is the backend for Eco Tech, providing RESTful API endpoints for data retri
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will guide you through setting up the project on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them:
+Before you begin, ensure you have the following installed:
 
-- `npm or yarn`
+Node.js (preferably the latest stable version)
 
-## Installing
+A package manager like npm or Yarn
 
-A step by step series of examples that tell you how to get a development environment running:
+## Installation
+Follow these steps to get your development environment set up:
 
 ### 1. Clone the repository:
 ```bash
@@ -33,7 +34,7 @@ yarn install
 
 Copy the .env.example file to a new file named .env and fill it with your environment variables.
 
-### 5. Run the server
+### 4. Run the server
 ```bash
 npm run start
 ```
