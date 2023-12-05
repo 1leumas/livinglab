@@ -3,7 +3,7 @@ export const timeRangeOptions = [
   { value: "lastWeek", label: "Last Week" },
   { value: "lastMonth", label: "Last Month" },
   { value: "last3Months", label: "Last 3 Months" },
-  { value: "allData", label: "All Data" },
+  { value: "allTime", label: "All Data" },
 ];
 
 export const intervalOptions = [
