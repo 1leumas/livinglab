@@ -2,7 +2,7 @@
 
 Smart LiveLab, also known as Living Lab, is an innovative project by Unijuí, aiming to transform the region through Internet of Things (IoT) and Smart Cities solutions. This project is a collaborative effort with the Secretary of Innovation, Science, and Technology, supported by the Municipal Administration.
 
-### Check out the [Demo](https://piecotech.netlify.app/) here!
+### Check out the [Demo](https://piecotech.netlify.app/) here! (no longer working)
 
 ## Overview
 
