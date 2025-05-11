@@ -1,5 +1,6 @@
 const pool = require("../config/dbConfig");
 const moment = require("moment");
+require("dotenv").config();
 
 async function fetchStationData(timeRange, station) {
   let query = `
@@ -38,8 +39,34 @@ async function fetchStationData(timeRange, station) {
 
   query += " ORDER BY time ASC";
 
-  const { rows } = await pool.query(query, params);
-  return rows;
+  let returnValue = [];
+
+  if (process.env.USE_MOCK_DATA !== "true") {
+    const { rows } = await pool.query(query, params);
+    returnValue = rows;
+  } else {
+    let rows = [];
+    for (let i = 0; i < 100; i++) {
+      rows.push({
+        deviceName: station,
+        time: moment().format(),
+        emw_temperature: Math.random() * 30,
+        emw_humidity: Math.random() * 100,
+        emw_rain_lvl: Math.random() * 100,
+        emw_avg_wind_speed: Math.random() * 10,
+        emw_gust_wind_speed: Math.random() * 10,
+        emw_atm_pres: Math.random() * 1000,
+        emw_uv: Math.random() * 10,
+        emw_solar_radiation: Math.random() * 1000,
+        emw_luminosity: Math.random() * 1000,
+        internal_temperature: Math.random() * 30,
+        internal_humidity: Math.random() * 100,
+      });
+    }
+    returnValue = rows;
+  }
+
+  return returnValue;
 }
 
 module.exports = {
